@@ -35,4 +35,61 @@ public class Shape {
 		}
 		this.pieceShape = pieceShape;
 	}
+	
+	private void setX(int index, int x) {
+		coords[index][0] = x;
+	}
+
+	private void setY(int index, int y) {
+		coords[index][1] = y;
+	}
+
+	public int x(int index) {
+		return coords[index][0];
+	}
+
+	public int y(int index) {
+		return coords[index][1];
+	}
+
+	public Tetrominoes getPieceShape() { //獲取產生方塊的形狀
+		return pieceShape;
+	}
+
+	public void setRandomShape() { //隨機生成方塊
+		Random r = new Random();
+		int x = Math.abs(r.nextInt()) % 7 + 1;
+		Tetrominoes[] values = Tetrominoes.values();
+		setPieceShape(values[x]);
+	}
+
+	public int minX() {
+		int m = coords[0][0];
+		for (int i = 0; i < 4; i++) {
+			m = Math.min(m, coords[i][0]);
+		}
+		return m;
+	}
+
+	public int minY() {
+		int m = coords[0][1];
+		for (int i = 0; i < 4; i++) {
+			m = Math.min(m, coords[i][1]);
+		}
+		return m;
+	}
+
+	public Shape rotate() {
+		if (pieceShape == Tetrominoes.SquareShape)
+			return this;
+
+		Shape result = new Shape();
+		result.pieceShape = pieceShape;
+
+		for (int i = 0; i < 4; ++i) {
+			result.setX(i, -y(i));
+			result.setY(i, x(i));
+		}
+		return result;
+	}
 }
