@@ -210,5 +210,39 @@ public class Controller {
 
 //	public static void restart(){
 //}
-	
+	private void removeFullLines() { // 消行方法
+		int howManyLineFull = 0;
+		for (int i = penalHeight - 1; i >= 0; --i) {
+			boolean lineIsFull = true;
+			for (int j = 0; j < penalWidth; ++j) {
+				if (PieceAt(j, i) == PieceType.AllType.Empty) {
+					lineIsFull = false;
+					break;
+				}
+			}
+			if (lineIsFull) {
+				++howManyLineFull;
+				for (int k = i; k < penalHeight - 1; ++k) {
+					for (int j = 0; j < penalWidth; ++j)
+						board[(k * penalWidth) + j] = PieceAt(j, k + 1);
+				}
+			}
+			
+//			for (int m = penalHeight - 1; m >= 0; m--) {
+//				for (int j = penalHeight; j >= 0; j--) {
+//					for (int i = 0; i < 13; i++) {
+//					}
+//				}
+//			}
+			
+		}
+		if (howManyLineFull > 0) {
+			score += howManyLineFull;
+			gameBoard.setScoreText(String.valueOf(score + "               "));
+			//gameBoard.setScoreText(String.valueOf(得分 + "               "));
+			isReachBottom = true;
+			nowPiece.setPieceType(PieceType.AllType.Empty);
+			gameBoard.repaint();
+		}
+	}
 }
