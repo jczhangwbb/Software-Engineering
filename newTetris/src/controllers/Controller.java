@@ -178,4 +178,37 @@ public class Controller {
 //	
 //}
 	
+	
+	private void newPiece() { // 新產生的方塊
+		nowPiece.setRandomShape();
+		nowX = penalWidth / 2 + 1;
+		nowY = penalHeight - 1 + nowPiece.minY();
+		if (!tryMove(nowPiece, nowX, nowY)) {
+			nowPiece.setPieceType(PieceType.AllType.Empty);
+			timer.stop();
+			isRunning = false;
+			gameBoard.setStatusText("                Game Over");
+		}
+	}
+	private void pieceDropped() {
+		for (int i = 0; i < 4; ++i) {
+			int x = nowX + nowPiece.x(i);
+			int y = nowY - nowPiece.y(i);
+			board[(y * penalWidth) + x] = nowPiece.getPieceShape();
+		}
+		removeFullLines();
+		if (!isReachBottom)
+			newPiece();
+	}
+	
+//	public static void gameover() {
+//		int select = JOptionPane.showConfirmDialog(null, "game over", "have fun", JOptionPane.YES_NO_OPTION);
+//		if(select==1) System.exit(0);
+//		else restart();
+//	}
+	
+
+//	public static void restart(){
+//}
+	
 }
