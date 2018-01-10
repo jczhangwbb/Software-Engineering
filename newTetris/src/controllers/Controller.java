@@ -107,4 +107,38 @@ public class Controller {
 //	gameBoard.start;
 //}
 	
+	
+	
+	public void pause() {
+		if (!isRunning) {
+			return;
+		}
+		isStoped = !isStoped;
+		if (isStoped) {
+			timer.stop();
+			gameBoard.setStatusText("                Paused");
+		} else {
+			timer.start();
+			gameBoard.setStatusText(String.valueOf("                Gaming"));
+		}
+		gameBoard.repaint();
+	}
+	public void speedUp() {
+		if (!tryMove(nowPiece, nowX, nowY - 1)) {
+			pieceDropped();
+		}
+	}
+	private void clearAll() {
+		for (int i = 0; i < penalHeight * penalWidth; ++i)
+			board[i] = PieceType.AllType.Empty;
+	}
+	public void goDown() {
+		int newY = nowY;
+		while (newY > 0) {
+			if (!tryMove(nowPiece, nowX, newY - 1))
+				break;
+			--newY;
+		}
+		pieceDropped();
+	}
 }
