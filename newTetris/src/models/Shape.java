@@ -8,23 +8,23 @@ public class Shape {
 	public enum Tetrominoes {
 		Empty, ZShape, SShape, LineShape, TShape, SquareShape, LShape, MirroredLShape
 	}
-	//7ç¨®å½¢ç‹€çš„piece å’Œ ä¸€ç¨®ç©ºçš„ã€‚
+	//7·NĞÎ îµÄpiece ºÍ Ò»·N¿ÕµÄ¡£
 	
 	private Tetrominoes pieceShape;
-	private int[][] coords; // ä¸€å€‹å½¢ç‹€æ–¹å¡Šçš„åº§æ¨™
-	private int[][][] coordsTable; // åº§æ¨™è¡¨
+	private int[][] coords; // Ò»‚€ĞÎ î·½‰KµÄ×ù˜Ë
+	private int[][][] coordsTable; // ×ù˜Ë±í
 
 	public Shape() {
 		coords = new int[4][2];
 		coordsTable = new int[][][] 
-				{ { { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 } }, // ç©ºç™½åº§æ¨™
-				{ { 0, -1 }, { 0, 0 }, { -1, 0 }, { -1, 1 } }, // Så½¢ç‹€åº§æ¨™
-				{ { 0, -1 }, { 0, 0 }, { 1, 0 }, { 1, 1 } }, // Zå½¢ç‹€åº§æ¨™
-				{ { 0, -1 }, { 0, 0 }, { 0, 1 }, { 0, 2 } }, // Iï¼ˆLineï¼‰å½¢ç‹€åº§æ¨™
-				{ { -1, 0 }, { 0, 0 }, { 1, 0 }, { 0, 1 } }, // Tå½¢ç‹€åº§æ¨™
-				{ { 0, 0 }, { 1, 0 }, { 0, 1 }, { 1, 1 } }, // æ–¹å½¢åº§æ¨™
-				{ { -1, -1 }, { 0, -1 }, { 0, 0 }, { 0, 1 } }, // åLå½¢ç‹€åº§æ¨™
-				{ { 1, -1 }, { 0, -1 }, { 0, 0 }, { 0, 1 } } // Lå½¢ç‹€åº§æ¨™
+				{ { { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 } }, // ¿Õ°××ù˜Ë
+				{ { 0, -1 }, { 0, 0 }, { -1, 0 }, { -1, 1 } }, // SĞÎ î×ù˜Ë
+				{ { 0, -1 }, { 0, 0 }, { 1, 0 }, { 1, 1 } }, // ZĞÎ î×ù˜Ë
+				{ { 0, -1 }, { 0, 0 }, { 0, 1 }, { 0, 2 } }, // I£¨Line£©ĞÎ î×ù˜Ë
+				{ { -1, 0 }, { 0, 0 }, { 1, 0 }, { 0, 1 } }, // TĞÎ î×ù˜Ë
+				{ { 0, 0 }, { 1, 0 }, { 0, 1 }, { 1, 1 } }, // ·½ĞÎ×ù˜Ë
+				{ { -1, -1 }, { 0, -1 }, { 0, 0 }, { 0, 1 } }, // ·´LĞÎ î×ù˜Ë
+				{ { 1, -1 }, { 0, -1 }, { 0, 0 }, { 0, 1 } } // LĞÎ î×ù˜Ë
 		};
 		setPieceShape(Tetrominoes.Empty);
 	}
@@ -52,11 +52,11 @@ public class Shape {
 		return coords[index][1];
 	}
 
-	public Tetrominoes getPieceShape() { //ç²å–ç”¢ç”Ÿæ–¹å¡Šçš„å½¢ç‹€
+	public Tetrominoes getPieceShape() { //«@È¡®aÉú·½‰KµÄĞÎ î
 		return pieceShape;
 	}
 
-	public void setRandomShape() { //éš¨æ©Ÿç”Ÿæˆæ–¹å¡Š
+	public void setRandomShape() { //ëS™CÉú³É·½‰K
 		Random r = new Random();
 		int x = Math.abs(r.nextInt()) % 7 + 1;
 		Tetrominoes[] values = Tetrominoes.values();
