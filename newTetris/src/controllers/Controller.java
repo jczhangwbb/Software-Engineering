@@ -141,4 +141,41 @@ public class Controller {
 		}
 		pieceDropped();
 	}
+	
+	private PieceType.AllType PieceAt(int x, int y) {
+		return board[(y * penalWidth) + x];
+	}
+	public void paint(Graphics g, double width, double height) {
+		int squareWidth = (int) width / penalWidth;
+		int squareHeight = (int) height / penalHeight;
+		int boardTop = (int) height - penalHeight * squareHeight;
+		for (int i = 0; i < penalHeight; ++i) {
+			for (int j = 0; j < penalWidth; ++j) {
+				models.PieceType.AllType shape = PieceAt(j, penalHeight - i - 1);
+				//models.PieceType.AllType shape = PieceAt(j, penalHeight - i + 1);
+				if (shape != models.PieceType.AllType.Empty)
+					gameBoard.drawPiece(g, j * squareWidth, boardTop + i * squareHeight, shape);
+			}
+		}
+		if (nowPiece.getPieceShape() != models.PieceType.AllType.Empty) {
+			for (int i = 0; i < 4; ++i) {
+				int x = nowX + nowPiece.x(i);
+				int y = nowY - nowPiece.y(i);
+				gameBoard.drawPiece(g, x * squareWidth, boardTop + (penalHeight - y - 1) * squareHeight,
+						nowPiece.getPieceShape());
+			}
+		}
+	}
+	
+//	public void setSpeed()
+//{
+//	if(Globle.downTime<=250) return;
+//	if(Lines>=6)
+//	{
+//		Globle.downTime -= 50;
+//		Lines -= 6;
+//	}
+//	
+//}
+	
 }
