@@ -41,5 +41,83 @@ public class PieceType {
 		}
 		this.pieceShape = pieceShape;
 	}
+	
+	public AllType getPieceShape() { //獲取產生方塊的形狀
+		return pieceShape;
+	}
+
+	public PieceType rotate() {
+		if (pieceShape == AllType.Piece_O)
+			return this;
+
+		PieceType result = new PieceType();
+		result.pieceShape = pieceShape;
+
+		for (int i = 0; i < 4; ++i) {
+			result.setX(i, -y(i));
+			result.setY(i, x(i));
+		}
+		return result;
+	}
+	
+//	public void rotate()
+//	{
+//		if (pieceShape == AllType.Piece_O)
+//			return this;
+//
+//		PieceType result = new PieceType();
+//		result.pieceShape = pieceShape;
+//		//System.out.println("旋转");
+//	}
+	
+	public void setRandomShape() { //隨機生成方塊
+		Random r = new Random();
+		int x = Math.abs(r.nextInt()) % 7 + 1;
+		AllType[] values = AllType.values();
+		setPieceType(values[x]);
+	}
+
+	private void setX(int para, int x) {
+		Coordinate[para][0] = x;
+	}
+
+	private void setY(int para, int y) {
+		Coordinate[para][1] = y;
+	}
+	
+//	public int getX()
+//	{
+//		return this.X;
+//	}
+//
+//	public int getY()
+//	{
+//		return this.Y;
+//	}
+	public int x(int para) {
+		return Coordinate[para][0];
+//		return this.X;
+	}
+
+	public int y(int para) {
+		return Coordinate[para][1];
+//		return this.Y;
+	}
+	
+	public int minX() {
+		int m = Coordinate[0][0];
+		for (int i = 0; i < 4; i++) {
+			m = Math.min(m, Coordinate[i][0]);
+		}
+		return m;
+	}
+
+	public int minY() {
+		int m = Coordinate[0][1];
+		for (int i = 0; i < 4; i++) {
+			m = Math.min(m, Coordinate[i][1]);
+		}
+		return m;
+	}
 
 }
