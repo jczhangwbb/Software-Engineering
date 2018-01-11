@@ -1,23 +1,51 @@
 package views;
+import javax.swing.*;
 
-import java.awt.BorderLayout;
+import views.Frame;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-
+import java.awt.*;
 
 public class Frame extends JFrame {
+    private JLabel statusBar;
+    private GamePenal gameBoard;
 
-    JLabel statusbar;
-
-
+    
     public Frame() {
+        statusBar = new JLabel("Gaming");
+        gameBoard = new GamePenal(this);
+    }
+
+    public void init() {
+        setLayout(new BorderLayout());
+        add(statusBar, BorderLayout.NORTH);
+        add(gameBoard, BorderLayout.CENTER);
+        gameBoard.start();
         setSize(400, 800);
-        setTitle("Tetris");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-   }
+        setPreferredSize(new Dimension(400, 800));
+        setTitle("決戰俄羅斯");
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        pack();
+        setVisible(true);
+        setResizable(false);
+    }
 
-    public static void main(String[] args) {
-
-    } 
+    JLabel getStatusBar() {
+        return statusBar;
+    }
+    
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Frame game = new Frame();
+					game.setVisible(true);
+					game.setLocationRelativeTo(null);
+					game.init();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+    
 }
