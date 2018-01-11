@@ -22,12 +22,20 @@ public class GamePenal extends JPanel implements ActionListener {
     
     public GamePenal(Frame frame) {
         setFocusable(true);
-        setBackground(Color.WHITE);
+        icon = new ImageIcon(getClass().getResource("coordsbg.png"));
+        img = icon.getImage();
+//      setBackground(Color.WHITE);
         controller = new Controller(BOARD_WIDTH, BOARD_HEIGHT, this);
         statusBar = frame.getStatusBar();
         scoreBar = frame.getScoreBar();
         hScoreBar = frame.getHighestScore();
         addKeyListener(new TAdapter());
+    }
+    
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
+        //        g.drawImage(img, 0, 0, 240, 500, this);
     }
     
     public void start() {
