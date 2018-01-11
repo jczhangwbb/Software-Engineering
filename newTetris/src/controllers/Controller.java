@@ -3,8 +3,7 @@ package controllers;
 import javax.swing.*;
 
 import models.PieceType;
-//import A10515003.GamePenal;
-//import studentno.Gamepenal; change view
+import views.GamePenal;
 
 import java.awt.*;
 
@@ -32,7 +31,7 @@ public class Controller {
 		this.penalHeight = penalHeight;
 		this.gameBoard = gameBoard;
 		nowPiece = new PieceType();
-		timer = new Timer(500, gameBoard); // 界面刷新时间（下落速度）
+		timer = new Timer(500, gameBoard); // 下落速度
 		timer.start();
 		board = new PieceType.AllType[penalWidth * penalHeight];
 		clearAll();
@@ -232,6 +231,8 @@ public class Controller {
 		}
 		if (howManyLineFull > 0) {
 			score += howManyLineFull;
+			gameBoard.setScoreText(String.valueOf(score + "               "));
+			//gameBoard.setScoreText(String.valueOf(得分 + "               "));
 			isReachBottom = true;
 			nowPiece.setPieceType(PieceType.AllType.Empty);
 			gameBoard.repaint();
