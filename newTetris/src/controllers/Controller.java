@@ -1,27 +1,14 @@
-/**
- * 
- */
 package controllers;
-
 
 import javax.swing.*;
 
 import models.PieceType;
-import views.GameBoard;
+import views.GamePenal;
 
 import java.awt.*;
 
-/**
- * @author Dengpengyu
- *
- */
 public class Controller {
-
-//	private GamePanel gamePanel;
-//	private static Gameboard gameboard;
-//	private int Blocks;
-
-	private GameBoard gameBoard;
+	private GamePenal gameBoard;
 	private int score = 0;
 	private int nowX = 0;
 	private int nowY = 0;
@@ -33,18 +20,22 @@ public class Controller {
 	private boolean isStoped = false;
 	private PieceType nowPiece;
 	private PieceType.AllType[] board;
+	private PieceType nextOne;
+
+//	private GamePanel gamePanel;
+//	private static Gameboard gameboard;
+//	private int Blocks;
 	
-	public Controller(int penalWidth, int penalHeight, GameBoard gameBoard) {
+	public Controller(int penalWidth, int penalHeight, GamePenal gameBoard) {
 		this.penalWidth = penalWidth;
 		this.penalHeight = penalHeight;
 		this.gameBoard = gameBoard;
 		nowPiece = new PieceType();
-		timer = new Timer(500, gameBoard); // 下落速度
+		timer = new Timer(500, gameBoard); // 界面刷新时间（下落速度）
 		timer.start();
 		board = new PieceType.AllType[penalWidth * penalHeight];
 		clearAll();
 	}
-	
 	private boolean tryMove(PieceType newPiece, int newX, int newY) {
 		for (int i = 0; i < 4; ++i) {
 			int x = newX + newPiece.x(i);
@@ -107,8 +98,6 @@ public class Controller {
 //	gameBoard.start;
 //}
 	
-	
-	
 	public void pause() {
 		if (!isRunning) {
 			return;
@@ -141,7 +130,6 @@ public class Controller {
 		}
 		pieceDropped();
 	}
-	
 	private PieceType.AllType PieceAt(int x, int y) {
 		return board[(y * penalWidth) + x];
 	}
@@ -178,6 +166,9 @@ public class Controller {
 //	
 //}
 	
+	public PieceType getNextPieceType() {
+		return nextOne;
+	}
 	
 	private void newPiece() { // 新產生的方塊
 		nowPiece.setRandomShape();
@@ -187,7 +178,7 @@ public class Controller {
 			nowPiece.setPieceType(PieceType.AllType.Empty);
 			timer.stop();
 			isRunning = false;
-			gameBoard.setStatusText("                Game Over");
+			gameBoard.setStatusText("Game Over(push 'R' to retry)");
 		}
 	}
 	private void pieceDropped() {
@@ -210,6 +201,8 @@ public class Controller {
 
 //	public static void restart(){
 //}
+	
+	
 	private void removeFullLines() { // 消行方法
 		int howManyLineFull = 0;
 		for (int i = penalHeight - 1; i >= 0; --i) {
@@ -238,8 +231,6 @@ public class Controller {
 		}
 		if (howManyLineFull > 0) {
 			score += howManyLineFull;
-			gameBoard.setScoreText(String.valueOf(score + "               "));
-			//gameBoard.setScoreText(String.valueOf(得分 + "               "));
 			isReachBottom = true;
 			nowPiece.setPieceType(PieceType.AllType.Empty);
 			gameBoard.repaint();
