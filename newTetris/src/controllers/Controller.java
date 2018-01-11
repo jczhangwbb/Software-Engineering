@@ -3,7 +3,8 @@ package controllers;
 import javax.swing.*;
 
 import models.PieceType;
-import views.GamePenal;
+//import A10515003.GamePenal;
+//import studentno.Gamepenal; change view
 
 import java.awt.*;
 
