@@ -3,39 +3,49 @@ package controllers;
 import javax.swing.*;
 
 import models.PieceType;
-import views.GamePenal;
-
+import A10615002.GamePenal;
 import java.awt.*;
 
 public class Controller {
-	private GamePenal gameBoard;
+
 	private int score = 0;
 	private int nowX = 0;
 	private int nowY = 0;
-	private Timer timer;
+
 	private int penalWidth;
 	private int penalHeight;
+
 	private boolean isReachBottom = false;
 	private boolean isRunning = false;
 	private boolean isStoped = false;
+
+	private Timer timer;
+	private GamePenal gameBoard;
 	private PieceType nowPiece;
 	private PieceType.AllType[] board;
 	private PieceType nextOne;
 
-//	private GamePanel gamePanel;
-//	private static Gameboard gameboard;
-//	private int Blocks;
-	
+	// private GamePanel gamePanel;
+	// private static Gameboard gameboard;
+	// private int Blocks;
+
 	public Controller(int penalWidth, int penalHeight, GamePenal gameBoard) {
+
+		// 获取游戏区域的宽度、高度和GamePanel实例
 		this.penalWidth = penalWidth;
 		this.penalHeight = penalHeight;
 		this.gameBoard = gameBoard;
+		// 获取PieceType实例
 		nowPiece = new PieceType();
+		// 设置计时器、delay
 		timer = new Timer(500, gameBoard); // 界面刷新时间（下落速度）
+		// 计时器开始
 		timer.start();
 		board = new PieceType.AllType[penalWidth * penalHeight];
+		// 清屏
 		clearAll();
 	}
+
 	private boolean tryMove(PieceType newPiece, int newX, int newY) {
 		for (int i = 0; i < 4; ++i) {
 			int x = newX + newPiece.x(i);
@@ -45,24 +55,37 @@ public class Controller {
 			if (PieceAt(x, y) != PieceType.AllType.Empty)
 				return false;
 		}
-		//this.nowpiece = newPiece;
-		//this.nowX = newX;
-		//this.nowY = newY;
+		// this.nowpiece = newPiece;
+		// this.nowX = newX;
+		// this.nowY = newY;
 		nowPiece = newPiece;
 		nowX = newX;
 		nowY = newY;
 		gameBoard.repaint();
 		return true;
 	}
-	public void goLeft() { // 向左移動方塊的方法
+	
+	/**
+	 * 向左移动的方法
+	 */
+	public void goLeft() {
 		tryMove(nowPiece, nowX - 1, nowY);
 	}
-	public void goRight() { // 向右移動方塊的方法
+
+	/**
+	 * 向右移动的方法
+	 */
+	public void goRight() {
 		tryMove(nowPiece, nowX + 1, nowY);
 	}
-	public void rotate() { // 旋轉方塊的方法
+	
+	/**
+	 * 选装的方法
+	 */
+	public void rotate() { 
 		tryMove(nowPiece.rotate(), nowX, nowY);
 	}
+
 	public void gameAction() {
 		if (isReachBottom) {
 			isReachBottom = false;
@@ -71,15 +94,23 @@ public class Controller {
 			speedUp();
 		}
 	}
+	
+	
 	public boolean isStarted() {
 		return isRunning;
 	}
+
 	public boolean isPaused() {
 		return isStoped;
 	}
+
 	public boolean isCurrentPieceEmpty() {
 		return nowPiece.getPieceShape() == PieceType.AllType.Empty;
 	}
+	
+	/**
+	 * 游戏开始
+	 */
 	public void start() {
 		if (isStoped)
 			return;
@@ -90,14 +121,14 @@ public class Controller {
 		newPiece();
 		timer.start();
 	}
-	
-//	public void newGame()
-//{
-//	gameBoard = new GameBoadrd(this);
-//	//System.out.println("newgame"+ score);
-//	gameBoard.start;
-//}
-	
+
+	// public void newGame()
+	// {
+	// gameBoard = new GameBoadrd(this);
+	// //System.out.println("newgame"+ score);
+	// gameBoard.start;
+	// }
+
 	public void pause() {
 		if (!isRunning) {
 			return;
@@ -112,15 +143,19 @@ public class Controller {
 		}
 		gameBoard.repaint();
 	}
+
 	public void speedUp() {
 		if (!tryMove(nowPiece, nowX, nowY - 1)) {
 			pieceDropped();
 		}
 	}
+
+	// 清空游戏区
 	private void clearAll() {
 		for (int i = 0; i < penalHeight * penalWidth; ++i)
 			board[i] = PieceType.AllType.Empty;
 	}
+
 	public void goDown() {
 		int newY = nowY;
 		while (newY > 0) {
@@ -130,9 +165,11 @@ public class Controller {
 		}
 		pieceDropped();
 	}
+
 	private PieceType.AllType PieceAt(int x, int y) {
 		return board[(y * penalWidth) + x];
 	}
+
 	public void paint(Graphics g, double width, double height) {
 		int squareWidth = (int) width / penalWidth;
 		int squareHeight = (int) height / penalHeight;
@@ -140,7 +177,7 @@ public class Controller {
 		for (int i = 0; i < penalHeight; ++i) {
 			for (int j = 0; j < penalWidth; ++j) {
 				models.PieceType.AllType shape = PieceAt(j, penalHeight - i - 1);
-				//models.PieceType.AllType shape = PieceAt(j, penalHeight - i + 1);
+				// models.PieceType.AllType shape = PieceAt(j, penalHeight - i + 1);
 				if (shape != models.PieceType.AllType.Empty)
 					gameBoard.drawPiece(g, j * squareWidth, boardTop + i * squareHeight, shape);
 			}
@@ -154,25 +191,27 @@ public class Controller {
 			}
 		}
 	}
-	
-//	public void setSpeed()
-//{
-//	if(Globle.downTime<=250) return;
-//	if(Lines>=6)
-//	{
-//		Globle.downTime -= 50;
-//		Lines -= 6;
-//	}
-//	
-//}
-	
+
+	// public void setSpeed()
+	// {
+	// if(Globle.downTime<=250) return;
+	// if(Lines>=6)
+	// {
+	// Globle.downTime -= 50;
+	// Lines -= 6;
+	// }
+	//
+	// }
+
 	public PieceType getNextPieceType() {
 		return nextOne;
 	}
-	
+
 	private void newPiece() { // 新產生的方塊
 		nowPiece.setRandomShape();
-		nowX = penalWidth / 2 + 1;
+		// 获得初始x坐标
+		nowX = penalWidth / 2 - 1;
+		// 获得初始y坐标
 		nowY = penalHeight - 1 + nowPiece.minY();
 		if (!tryMove(nowPiece, nowX, nowY)) {
 			nowPiece.setPieceType(PieceType.AllType.Empty);
@@ -181,6 +220,7 @@ public class Controller {
 			gameBoard.setStatusText("Game Over(push 'R' to retry)");
 		}
 	}
+
 	private void pieceDropped() {
 		for (int i = 0; i < 4; ++i) {
 			int x = nowX + nowPiece.x(i);
@@ -191,18 +231,17 @@ public class Controller {
 		if (!isReachBottom)
 			newPiece();
 	}
-	
-//	public static void gameover() {
-//		int select = JOptionPane.showConfirmDialog(null, "game over", "have fun", JOptionPane.YES_NO_OPTION);
-//		if(select==1) System.exit(0);
-//		else restart();
-//	}
-	
 
-//	public static void restart(){
-//}
-	
-	
+	// public static void gameover() {
+	// int select = JOptionPane.showConfirmDialog(null, "game over", "have fun",
+	// JOptionPane.YES_NO_OPTION);
+	// if(select==1) System.exit(0);
+	// else restart();
+	// }
+
+	// public static void restart(){
+	// }
+
 	private void removeFullLines() { // 消行方法
 		int howManyLineFull = 0;
 		for (int i = penalHeight - 1; i >= 0; --i) {
@@ -220,14 +259,14 @@ public class Controller {
 						board[(k * penalWidth) + j] = PieceAt(j, k + 1);
 				}
 			}
-			
-//			for (int m = penalHeight - 1; m >= 0; m--) {
-//				for (int j = penalHeight; j >= 0; j--) {
-//					for (int i = 0; i < 13; i++) {
-//					}
-//				}
-//			}
-			
+
+			// for (int m = penalHeight - 1; m >= 0; m--) {
+			// for (int j = penalHeight; j >= 0; j--) {
+			// for (int i = 0; i < 13; i++) {
+			// }
+			// }
+			// }
+
 		}
 		if (howManyLineFull > 0) {
 			score += howManyLineFull;
