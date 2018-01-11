@@ -17,6 +17,8 @@ public class GamePenal extends JPanel implements ActionListener {
     private JLabel statusBar;
     private JLabel scoreBar;
     private JLabel hScoreBar;
+    private ImageIcon icon;
+    private Image img;
     
     private Controller controller;
     
