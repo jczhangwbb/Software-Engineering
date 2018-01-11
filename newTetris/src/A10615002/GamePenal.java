@@ -1,9 +1,11 @@
-package views;
+package A10615002;
 
 import controllers.Controller;
 
 import javax.print.attribute.PrintJobAttributeSet;
 import javax.swing.*;
+import javax.swing.border.LineBorder;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,9 +23,10 @@ public class GamePenal extends JPanel implements ActionListener {
 
     GamePenal(Frame parent) {
         setFocusable(true);
-        //controller = new Controller(BOARD_WIDTH, BOARD_HEIGHT, this);
+        controller = new Controller(BOARD_WIDTH, BOARD_HEIGHT, this);
         statusBar = parent.getStatusBar();
         addKeyListener(new TAdapter());
+        this.setBorder(new LineBorder(new Color(255, 255, 0),1,true));
         this.setOpaque(false);
     }
 
@@ -50,13 +53,13 @@ public class GamePenal extends JPanel implements ActionListener {
         Color colors[] = 
         	{ 		
         			new Color(0, 0, 0), 
-        			new Color(64, 64, 64), //Z形方塊 紅色
-        			new Color(64, 64, 64), //S形方塊 綠色
-        			new Color(64, 64, 64),//I（Line）形方塊 藏藍
-        			new Color(64, 64, 64), //T形方塊 黃色
-        			new Color(64, 64, 64),//方形方塊 桃紅
-        			new Color(64, 64, 64), //L形方塊 天藍
-        			new Color(64, 64, 64)//反L形方塊 深黃
+        			new Color(204, 102, 102), //Z形方塊 紅色
+        			new Color(102, 204, 102), //S形方塊 綠色
+        			new Color(102, 102, 204),//I（Line）形方塊 藏藍
+        			new Color(204, 204, 102), //T形方塊 黃色
+        			new Color(204, 102, 204),//方形方塊 桃紅
+        			new Color(102, 204, 204), //L形方塊 天藍
+        			new Color(218, 170, 0)//反L形方塊 深黃
         };
 
 

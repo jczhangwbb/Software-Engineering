@@ -32,9 +32,14 @@ public class PieceType {
 				{ { 1, -1 }, { 0, -1 }, { 0, 0 }, { 0, 1 } }// L形狀座標
 				
 		};
+		// 设置方块为空
 		setPieceType(AllType.Empty);
 	}
-
+	
+    	/**
+    	 * 设置方块形状
+    	 * @param pieceShape
+    	 */
 	public void setPieceType(AllType pieceShape) {
 		for (int i = 0; i < 4; i++) {
 			System.arraycopy(PieceTable[pieceShape.ordinal()][i], 0, Coordinate[i], 0, 2);
@@ -42,6 +47,10 @@ public class PieceType {
 		this.pieceShape = pieceShape;
 	}
 	
+	/**
+	 * 获得方块形状
+	 * @return
+	 */
 	public AllType getPieceShape() { //獲取產生方塊的形狀
 		return pieceShape;
 	}
