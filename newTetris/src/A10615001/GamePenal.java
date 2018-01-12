@@ -17,9 +17,10 @@ public class GamePenal extends JPanel implements ActionListener {
 	private final int BOARD_WIDTH = 10;
 	private final int BOARD_HEIGHT = 22;
 	private JLabel statusBar;
+	private JLabel Goal;
 	private JButton pauseButton;
 	private JButton bstart;
-	private JButton bstop;
+	private JButton bpause;
 	private Image img ;
 	
 	private Controller controller;
@@ -28,6 +29,7 @@ public class GamePenal extends JPanel implements ActionListener {
 		img = Toolkit.getDefaultToolkit().getImage("\bg.jpg");
 		controller = new Controller(BOARD_WIDTH, BOARD_HEIGHT, this);
 		statusBar = parent.getStatusBar();
+		Goal=parent.getScore();
 		addKeyListener(new TAdapter());
 	}
 	
@@ -82,6 +84,10 @@ public class GamePenal extends JPanel implements ActionListener {
 
 	public void setStatusText(String text) {
 		statusBar.setText(text);
+	}
+	
+	public void setGoalText(String text) {
+		Goal.setText(text);
 	}
 	
 	private class TAdapter extends KeyAdapter {
