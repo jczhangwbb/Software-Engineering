@@ -1,0 +1,3 @@
+使用方法：
+在controller.java中 import導入不同學號的view
+然後在學號packet上右鍵 run as，即可運行每個學號的view

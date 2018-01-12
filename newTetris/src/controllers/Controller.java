@@ -5,7 +5,7 @@ import javax.swing.*;
 import models.PieceType;
 //import A10515003.GamePenal;
 //import studentno.Gamepenal; change view
-import A10615003.GamePenal;
+import A10615001.GamePenal;
 import java.awt.*;
 import java.util.Set;
 
