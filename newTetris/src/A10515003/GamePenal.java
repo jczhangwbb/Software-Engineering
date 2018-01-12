@@ -21,7 +21,7 @@ public class GamePenal extends JPanel implements ActionListener {
 	public GamePenal(TetrisFrame frame) {
 		setFocusable(true);
 		setBackground(Color.lightGray);
-		//controller = new Controller(BOARD_WIDTH, BOARD_HEIGHT, this);
+		controller = new Controller(BOARD_WIDTH, BOARD_HEIGHT, this);
 		scoreBar = frame.getScoreBar();
 		addKeyListener(new TAdapter());
 	}

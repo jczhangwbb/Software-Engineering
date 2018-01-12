@@ -26,7 +26,7 @@ public class GamePenal extends JPanel implements ActionListener {
 	GamePenal(Frame parent) {
 		setFocusable(true);
 		img = Toolkit.getDefaultToolkit().getImage("\bg.jpg");
-		//controller = new Controller(BOARD_WIDTH, BOARD_HEIGHT, this);
+		controller = new Controller(BOARD_WIDTH, BOARD_HEIGHT, this);
 		statusBar = parent.getStatusBar();
 		addKeyListener(new TAdapter());
 	}
