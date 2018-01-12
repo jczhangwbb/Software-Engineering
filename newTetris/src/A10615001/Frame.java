@@ -20,6 +20,12 @@ public class Frame extends JFrame {
 	private JPanel container;
 	private Controller controller;
 	private JTextArea howToPlay;
+	private JLabel score;
+	
+
+	public JLabel getScore() {
+		return score;
+	}
 
 	public Frame() {
 		
@@ -31,11 +37,13 @@ public class Frame extends JFrame {
 
 		statusBar = new JLabel("Gaming");
 		howToPlay = new JTextArea();
-		howToPlay.append(" ⬅ : Move Left \r\n ➡ : Move Right \r\n ⬆ : Rotate \r\n ⬇ : dropDown \r\n Space: Speed up");
+		howToPlay.append(" ⬅ : Move Left \r\n ➡ :Move Right \r\n ⬆ : Rotate \r\n ⬇ : dropDown \r\n Space: Speed up");
 		howToPlay.setEditable(false);
 		
 		bStart= new JButton("开始");
 		bPause= new JButton("暂停");
+		
+		score= new JLabel("分数："+ 0);
 		gameBoard = new GamePenal(this);
 
 		container = new JPanel();
@@ -58,10 +66,12 @@ public class Frame extends JFrame {
 				.addGroup(glcontainer.createSequentialGroup().addGap(6)
 				.addComponent(gameBoard,GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE))) 
 				.addContainerGap()));
+		
 		sidePanel.setLayout(new BoxLayout(sidePanel,1));
 		sidePanel.add(bStart);
 		sidePanel.add(bPause);
 		sidePanel.add(howToPlay);
+		sidePanel.add(score);
 		sidePanel.setBackground(Color.LIGHT_GRAY);
 		container.setLayout(glcontainer);
 
@@ -79,7 +89,8 @@ public class Frame extends JFrame {
 	JLabel getStatusBar() {
 		return statusBar;
 	}
-
+	
+		
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -95,4 +106,18 @@ public class Frame extends JFrame {
 		});
 	}
 
+	class Background extends JPanel  {
+		private Image IMG_GB_TEMP = new ImageIcon("bg.jpg").getImage();
+		public void paint(Graphics g) {
+			g.drawImage(IMG_GB_TEMP, 0, 0, 240, 500,null); //背景图片
+			
+			
+		}
+			
+		
+		}
+		
+		
+	
+	
 }
