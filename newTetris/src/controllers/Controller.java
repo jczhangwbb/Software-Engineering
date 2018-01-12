@@ -12,6 +12,7 @@ import java.util.Set;
 public class Controller {
     private GamePenal gameBoard;
     private int score = 0;
+    private int level =0;
     private int highestScore = 0;
     private int nowX = 0;
     private int nowY = 0;
@@ -247,6 +248,12 @@ public class Controller {
         }
         if (howManyLineFull > 0) {
             score += howManyLineFull;
+            
+            //
+            level = score /5 +1;
+            timer.setDelay(SPEED - level * 20);
+            gameBoard.setLevelText(String.valueOf(level+" "));
+            //
             gameBoard.setScoreText(String.valueOf(score + "               "));
             showHighestScore();
             isReachBottom = true;
