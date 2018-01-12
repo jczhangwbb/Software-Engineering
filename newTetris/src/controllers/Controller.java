@@ -5,16 +5,18 @@ import javax.swing.*;
 import models.PieceType;
 //import A10515003.GamePenal;
 //import studentno.Gamepenal; change view
-import A10615003.GamePenal;
+import A10615002.GamePenal;
 import java.awt.*;
 import java.util.Set;
 
 public class Controller {
     private GamePenal gameBoard;
     private int score = 0;
+    private int level =0;
     private int highestScore = 0;
     private int nowX = 0;
     private int nowY = 0;
+    private int SPEED = 500;
     private Timer timer;
     private int penalWidth;
     private int penalHeight;
@@ -34,7 +36,7 @@ public class Controller {
         this.penalHeight = penalHeight;
         this.gameBoard = gameBoard;
         nowPiece = new PieceType();
-        timer = new Timer(500, gameBoard); // 界面刷新时间（下落速度）
+        timer = new Timer(SPEED, gameBoard); // 界面刷新时间（下落速度）
         timer.start();
         board = new PieceType.AllType[penalWidth * penalHeight];
         clearAll();
@@ -185,7 +187,7 @@ public class Controller {
     
     private void newPiece() { // 新產生的方塊
         nowPiece.setRandomShape();
-        nowX = penalWidth / 2 + 1;
+        nowX = penalWidth / 2 - 1;
         nowY = penalHeight - 1 + nowPiece.minY();
         if (!tryMove(nowPiece, nowX, nowY)) {
             nowPiece.setPieceType(PieceType.AllType.Empty);
@@ -247,7 +249,12 @@ public class Controller {
         }
         if (howManyLineFull > 0) {
             score += howManyLineFull;
-            gameBoard.setScoreText(String.valueOf(score + "               "));
+            //
+            level = score /5 +1;
+            timer.setDelay(SPEED - level * 20);
+            gameBoard.setLevelText(String.valueOf(level+" "));
+            //
+            gameBoard.setScoreText(String.valueOf(score + " "));      
             showHighestScore();
             isReachBottom = true;
             nowPiece.setPieceType(PieceType.AllType.Empty);

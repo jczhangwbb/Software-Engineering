@@ -21,7 +21,7 @@ public class GamePenal extends JPanel implements ActionListener {
 
     GamePenal(Frame parent) {
         setFocusable(true);
-        controller = new Controller(BOARD_WIDTH, BOARD_HEIGHT, this);
+        //controller = new Controller(BOARD_WIDTH, BOARD_HEIGHT, this);
         statusBar = parent.getStatusBar();
         addKeyListener(new TAdapter());
     }

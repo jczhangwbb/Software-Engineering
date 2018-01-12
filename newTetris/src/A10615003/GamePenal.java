@@ -23,7 +23,7 @@ public class GamePenal extends JPanel implements ActionListener {
     public GamePenal(Frame frame) {
         setFocusable(true);
         setBackground(Color.WHITE);
-        controller = new Controller(BOARD_WIDTH, BOARD_HEIGHT, this);
+        //controller = new Controller(BOARD_WIDTH, BOARD_HEIGHT, this);
         statusBar = frame.getStatusBar();
         scoreBar = frame.getScoreBar();
         hScoreBar = frame.getHighestScore();

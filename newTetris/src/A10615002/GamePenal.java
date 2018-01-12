@@ -1,7 +1,10 @@
-package A10515003;
-import javax.swing.*;
+package A10615002;
 
 import controllers.Controller;
+
+import javax.print.attribute.PrintJobAttributeSet;
+import javax.swing.*;
+import javax.swing.border.LineBorder;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -10,39 +13,46 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public class GamePenal extends JPanel implements ActionListener {
-	private final int BOARD_WIDTH = 14;
-	private final int BOARD_HEIGHT = 30;
+	private final int BOARD_WIDTH = 10;
+	private final int BOARD_HEIGHT = 20;
 	private JLabel statusBar;
-	private JLabel scoreBar;
-	private JLabel jlTimer=new JLabel();
-	private Timer timer;
+
+	private JLabel lscore;
+	private JLabel llevel;
+
 	private Controller controller;
 
-	public GamePenal(TetrisFrame frame) {
+	GamePenal(Frame parent) {
 		setFocusable(true);
-		setBackground(Color.lightGray);
-		//controller = new Controller(BOARD_WIDTH, BOARD_HEIGHT, this);
-		scoreBar = frame.getScoreBar();
+		controller = new Controller(BOARD_WIDTH, BOARD_HEIGHT, this);
+		statusBar = parent.getStatusBar();
+		lscore = parent.getlScore();
+		llevel = parent.getlLevel();
 		addKeyListener(new TAdapter());
+		this.setBorder(new LineBorder(new Color(255, 255, 0), 1, true));
+		this.setOpaque(false);
 	}
 
-	public void start() {
+	void start() {
 		controller.start();
 	}
 
-	public void TimerText() {
-		// TODO Auto-generated constructor stub
-		setSize(50,50);
-		add(jlTimer);
-		//设置Timer定时器并启动
-		timer=new Timer(500,this);
-		timer.start();
-		setVisible(true);
-	}
-	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		controller.gameAction();
+	}
+
+	public void setScoreText(String text) {
+		lscore.setText("分数:" + text);
+
+	}
+	
+	public void setLevelText(String text) {
+		llevel.setText("等级:"+ text);
+	}
+
+	public void setHighestScoreText(String text) {
+		
 	}
 
 	public void paint(Graphics g) {
@@ -60,17 +70,14 @@ public class GamePenal extends JPanel implements ActionListener {
 	}
 
 	public void drawPiece(Graphics g, int x, int y, models.PieceType.AllType shape) {
-		Color colors[] = 
-			{ 
-    			new Color(0, 0, 0), 
-    			new Color(167, 34, 48), //Z形方塊 murasaki
-    			new Color(167, 203, 48), //S形方塊 grass green
-    			new Color(59, 203, 163),//I（Line）形方塊 light blue
-    			new Color(14, 65, 34), //T形方塊 dark green
-    			new Color(156, 65, 114),//方形方塊 brown red
-    			new Color(156, 152, 114), //L形方塊 grey
-    			new Color(248, 241, 114)//反L形方塊 yellow
-			};
+		Color colors[] = { new Color(0, 0, 0), new Color(204, 102, 102), // Z形方塊 紅色
+				new Color(102, 204, 102), // S形方塊 綠色
+				new Color(102, 102, 204), // I（Line）形方塊 藏藍
+				new Color(204, 204, 102), // T形方塊 黃色
+				new Color(204, 102, 204), // 方形方塊 桃紅
+				new Color(102, 204, 204), // L形方塊 天藍
+				new Color(218, 170, 0)// 反L形方塊 深黃
+		};
 
 		Color color = colors[shape.ordinal()];
 
@@ -89,10 +96,6 @@ public class GamePenal extends JPanel implements ActionListener {
 	public void setStatusText(String text) {
 		statusBar.setText(text);
 	}
-	
-	public void setScoreText(String text) {
-		scoreBar.setText(text);
-	}
 
 	private class TAdapter extends KeyAdapter {
 		public void keyPressed(KeyEvent e) {
@@ -103,7 +106,7 @@ public class GamePenal extends JPanel implements ActionListener {
 
 			int keycode = e.getKeyCode();
 
-			if (keycode == 'p' || keycode == 'P') { //按p暫停 （大小寫都可以）
+			if (keycode == 'p' || keycode == 'P') {
 				controller.pause();
 				return;
 			}
@@ -111,29 +114,23 @@ public class GamePenal extends JPanel implements ActionListener {
 			if (controller.isPaused())
 				return;
 
-			switch (keycode) { //按鍵觸發事件
+			switch (keycode) {
 			case KeyEvent.VK_LEFT:
-				controller.goLeft();//向左按鍵觸發事件
+				controller.goLeft();
 				break;
 			case KeyEvent.VK_RIGHT:
-				controller.goRight();//向右按鍵觸發事件
+				controller.goRight();
 				break;
 			case KeyEvent.VK_DOWN:
-				controller.goDown();//向下按鍵觸發事件
+				controller.goDown();
 				break;
 			case KeyEvent.VK_UP:
-				controller.rotate();//向上按鍵觸發事件
+				controller.rotate();
 				break;
 			case KeyEvent.VK_SPACE:
-				controller.speedUp();//空格按鍵觸發事件
+				controller.speedUp();
 				break;
-			case KeyEvent.VK_P:
-				try {
-					Thread.sleep(1000);
-				} catch (InterruptedException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+
 			}
 
 		}
